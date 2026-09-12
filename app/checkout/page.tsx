@@ -200,15 +200,37 @@ export default function CheckoutPage() {
             {orderNumber}
           </h2>
 
-          <p>
-            We have also sent your order confirmation
-            to your email address.
-          </p>
+         <p>
+  We have also sent your order confirmation
+  to your email address.
+</p>
 
-          <p>
-            Please keep your order number for future
-            reference.
-          </p>
+<div className="whatsapp-order-box">
+  <p className="whatsapp-title">
+    NEED HELP WITH YOUR ORDER?
+  </p>
+
+  <p className="whatsapp-message">
+    After placing your order, send us a WhatsApp
+    message for any questions or order updates.
+  </p>
+
+  <a
+    href={`https://wa.me/27664332445?text=${encodeURIComponent(
+      `Hi URGENT®, I have just placed order #${orderNumber}. I'd like to enquire about my order.`
+    )}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="whatsapp-order-button"
+  >
+    WHATSAPP US →
+  </a>
+</div>
+
+<p>
+  Please keep your order number for future
+  reference.
+</p>
 
           <Link
             href="/"
