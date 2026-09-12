@@ -153,7 +153,7 @@ export default function Home() {
         </a>
       </section>
 
-      {/* FOOTER */}
+
       <footer id="contact">
         <div className="footer-logo">URGENT®</div>
 
@@ -170,7 +170,8 @@ export default function Home() {
   </a>
 </div>
 
-        <p>© 2026 URGENT. ALL RIGHTS RESERVED.</p>
+        <p>© 2026 URGENT COLLECT | A DIVISION OF URGENT GROUP (PTY) LTD-2026/721945/07. ALL RIGHTS RESERVED.</p>
+        <p></p>
       </footer>
     </main>
   );
