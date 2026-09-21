@@ -31,6 +31,10 @@ export async function POST(request: Request) {
       cartTotal,
     } = body;
 
+    // =========================
+    // REQUIRED INFORMATION
+    // =========================
+
     if (
       !name ||
       !email ||
@@ -50,7 +54,30 @@ export async function POST(request: Request) {
       );
     }
 
-    // Generate unique order number
+    // =========================
+    // EMAIL VALIDATION
+    // =========================
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (
+      typeof email !== "string" ||
+      !emailPattern.test(email.trim())
+    ) {
+      return Response.json(
+        {
+          error: "Invalid email address.",
+        },
+        { status: 400 }
+      );
+    }
+
+    const customerEmailAddress = email.trim();
+
+    // =========================
+    // GENERATE ORDER NUMBER
+    // =========================
+
     const orderNumber = generateOrderNumber();
 
     // =========================
@@ -107,7 +134,7 @@ export async function POST(request: Request) {
         <h2>Customer Information</h2>
 
         <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Email:</strong> ${customerEmailAddress}</p>
         <p><strong>Phone:</strong> ${phone}</p>
 
         <h2>Delivery Address</h2>
@@ -170,7 +197,7 @@ export async function POST(request: Request) {
 
     const customerEmail = await resend.emails.send({
       from: "URGENT® <orders@urgentcollect.co.za>",
-      to: email,
+      to: customerEmailAddress,
       subject: `URGENT® Order Confirmation — ${orderNumber}`,
       html: `
         <h1>Thank you, ${name}.</h1>
@@ -243,7 +270,10 @@ export async function POST(request: Request) {
       );
     }
 
-    // Send order number back to website
+    // =========================
+    // SUCCESS
+    // =========================
+
     return Response.json({
       success: true,
       orderNumber,
