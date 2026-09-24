@@ -75,6 +75,26 @@ export async function POST(request: Request) {
     const customerEmailAddress = email.trim();
 
     // =========================
+    // QUANTITY VALIDATION
+    // =========================
+
+    const invalidQuantity = cart.some(
+      (item: { quantity: number }) =>
+        typeof item.quantity !== "number" ||
+        item.quantity <= 0 ||
+        !Number.isInteger(item.quantity)
+    );
+
+    if (invalidQuantity) {
+      return Response.json(
+        {
+          error: "Invalid product quantity.",
+        },
+        { status: 400 }
+      );
+    }
+
+    // =========================
     // GENERATE ORDER NUMBER
     // =========================
 
